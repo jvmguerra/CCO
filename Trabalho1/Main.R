@@ -77,6 +77,31 @@ Runge <-function(intervalo_i,intervalo_f,m)
 
 Exercicio1 <-function()
 {
+	x_p <- c(1.9,2.1,2.5)
+	y_p <- c(1.759,1.6562,3.425)
+	
+	x_s <- c(1.9,2.1,2.5,3.0)
+	y_s <- c(1.759,1.6562,3.425,3.0855)
+	
+	x_t <- c(1.9,2.1,2.5,3.0,3.2)
+	y_t <- c(1.759,1.6562,3.425,3.0855,11.0925)
+	
+	interpolar <- seq(x_p[1],x_p[length(x_p)],length.out = 50) ## vetor a ser interpolado
+
+	## tentar plotar a original para comparações depois
+
+	# plotando newton de 2,3,4 grau
+
+	plot(interpolar,(Newton(x_p,y_p,length(x_p),interpolar)),type = "l",col = "red")
+	lines(interpolar,(Newton(x_s,y_s,length(x_s),interpolar)),type = "l",col = "blue")
+	lines(interpolar,(Newton(x_t,y_t,length(x_t),interpolar)),type = "l",col = "green")
+
+	graphics.off()
+	scan()
+
+	plot(interpolar,(Lagrange(x_p,y_p,length(x_p),interpolar)),type = "l",col = "red")
+	lines(interpolar,(Lagrange(x_s,y_s,length(x_s),interpolar)),type = "l",col = "blue")
+	lines(interpolar,(Lagrange(x_t,y_t,length(x_t),interpolar)),type = "l",col = "green")
 
 }
 
@@ -111,4 +136,4 @@ Exercicio2 <-function(intervalo_i,intervalo_f)
 
 }
 
-#Exercicio2(-1,1)
+Exercicio1()
