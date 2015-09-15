@@ -77,31 +77,6 @@ Runge <-function(intervalo_i,intervalo_f,m)
 
 Exercicio1 <-function()
 {
-	x_p <- c(1.9,2.1,2.5)
-	y_p <- c(1.759,1.6562,3.425)
-	
-	x_s <- c(1.9,2.1,2.5,3.0)
-	y_s <- c(1.759,1.6562,3.425,3.0855)
-	
-	x_t <- c(1.9,2.1,2.5,3.0,3.2)
-	y_t <- c(1.759,1.6562,3.425,3.0855,11.0925)
-	
-	interpolar <- seq(x_p[1],x_p[length(x_p)],length.out = 50) ## vetor a ser interpolado
-
-	## tentar plotar a original para comparações depois
-
-	# plotando newton de 2,3,4 grau
-
-	plot(interpolar,(Newton(x_p,y_p,length(x_p),interpolar)),type = "l",col = "red")
-	lines(interpolar,(Newton(x_s,y_s,length(x_s),interpolar)),type = "l",col = "blue")
-	lines(interpolar,(Newton(x_t,y_t,length(x_t),interpolar)),type = "l",col = "green")
-
-	graphics.off()
-	scan()
-
-	plot(interpolar,(Lagrange(x_p,y_p,length(x_p),interpolar)),type = "l",col = "red")
-	lines(interpolar,(Lagrange(x_s,y_s,length(x_s),interpolar)),type = "l",col = "blue")
-	lines(interpolar,(Lagrange(x_t,y_t,length(x_t),interpolar)),type = "l",col = "green")
 
 }
 
@@ -136,4 +111,132 @@ Exercicio2 <-function(intervalo_i,intervalo_f)
 
 }
 
-Exercicio1()
+
+Spline_linear <- function(X,Y,n,x)
+{
+	#x  = Valor a ser interpolado
+	#X  = pontos dos x usados para fazer o vetor A e B(Coeficientes)
+	#Y  = pontos dos y para fazer o vetor A e B(Coeficientes)
+	#n  = numero de pontos do vetor
+
+	A <-Y # Ai = F(Xi)
+	B <- c()
+	
+	count <- 1
+
+	for (i in 1:(n-1))
+		B[i] <- (Y[i+1] - Y[i]) / ( X[i+1] - X[i] )
+	
+
+	for(k in 1:(n-1))
+		if(X[k] < x && X[k+1]>x)
+			break
+		count = k
+
+	S <- A[count] + B[count] * (x - X[count])
+
+	S
+
+}
+
+Spline_quadratica <- function(X,Y,n,x)
+{	
+
+#X <- c(3.0,4.5,7.0,9.0)
+#Y <- c(2.5,1.0,2.5,0.5)
+#n <-length(X)	
+#x<- c(5,6)
+
+	#n eh o numero de pontos
+	tam <- 2*n-3
+	a <- c()	
+
+	for(i in 1:(n-1))
+	{
+		a[i] <- Y[i]		
+	}
+	
+
+	H<-c()
+	D <- seq(0,0, length.out = tam)
+	A <- matrix(data = 0:0,nrow = tam, ncol = tam)	
+
+	for( k in 1:(n-1))
+	{
+		H[k] <- X[k+1] - X[k]
+		D[k] <- Y[k+1] - Y[k] 
+	}
+
+	A[1,1] <- H[1] # setando a primeira linha da matriz
+	
+	j<-2
+	for(i in 2:(n-1)) # preenchendo com o primeiro bloco de condições
+	{
+		A[i,j] <- H[i]
+		A[i,(j+1)] <- H[i] * H[i]
+		j <- j + 2
+	}
+
+	A[(i+1),1] <- (-1)
+	A[(i+1),2] <- (1)
+	
+	j <- 2	
+	h_iterator <- 2
+	i <- i +1	
+
+	for(k in (i+1):tam)
+	{
+		A[k,j] <- (-1)
+		A[k,(j+1)] <-  (-1)*(2 * H[h_iterator])
+		A[k,(j+2)] <- (1)
+		h_iterator <- h_iterator +1 
+		j <- j + 2
+	}
+
+	m <- solve(A,D)
+		
+	b <- c()
+	c <- c()
+
+	b[1] <- m[1]
+	c[1] <- 0	
+	
+	##COSNTRUINDO OS Bis E OS Cis
+	fim <- length(m)
+	for(i in 2:fim)
+	{
+		if(i %% 2 ==0)
+		{
+			b <- append(b,m[i])
+		}
+		else
+		{
+			c <- append(c,m[i])
+		}
+
+	}
+
+	S <- c()
+
+	for(j in 1:length(x))
+	{
+		xj <- x[j]
+		for(i in 1:n)
+		{
+			if(xj > X[i] && xj < X[i+1])
+			{
+				R <- a[i] + b[i] * (xj - X[i]) + c[i] * ((xj - X[i])^2)
+				print(R)
+				S <- append(S, R)
+			}
+		}
+	}
+		
+	
+	plot(x,S,type = "l",col = "green")
+	#title(main="Spline Quadratica", sub="sub-title", 
+  	#xlab="X", ylab="F(x)")
+}
+
+
+#Exercicio2(-1,1)
