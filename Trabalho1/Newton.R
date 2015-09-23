@@ -3,7 +3,7 @@ Newton <- function(X,Y,n,x)
 	#x  = Valor a ser interpolado
 	#X  = pontos dos x usados para fazer o polinomio XY
 	#Y  = pontos dos y para fazer o polinomio XY
-	#n  = numero de pontos do vetor
+	#n  = numero de pontos do vetor X e Y (eles tem o mesmo tamanho)
 
 	xy <- Y
 	
@@ -17,11 +17,11 @@ Newton <- function(X,Y,n,x)
 		R <- R * (x - X[i]) + xy[i]
 	
 		
-	print(R)
+	cat("Newton = ",R,"\n")
 	
-	plot(x,R,type = "l",col = "blue")
+	#plot(x,R,type = "l",col = "blue")
 
-	return R
+	return (R)
 	
 }
 

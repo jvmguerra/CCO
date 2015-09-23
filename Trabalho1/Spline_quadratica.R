@@ -29,7 +29,7 @@ Spline_quadratica <- function(X,Y,n,x)
 	A[1,1] <- H[1] # setando a primeira linha da matriz
 	
 	j<-2
-	for(i in 2:(n-1)) # preenchendo com o primeiro bloco de condições
+	for(i in 2:(n-1)) # preenchendo com o primeiro bloco de condiÃ§Ãµes
 	{
 		A[i,j] <- H[i]
 		A[i,(j+1)] <- H[i] * H[i]
@@ -85,16 +85,17 @@ Spline_quadratica <- function(X,Y,n,x)
 			if(xj > X[i] && xj < X[i+1])
 			{
 				R <- a[i] + b[i] * (xj - X[i]) + c[i] * ((xj - X[i])^2)
-				print(R)
+				#print(R)
 				S <- append(S, R)
 			}
 		}
 	}
-		
 	
-	plot(x,S,type = "l",col = "green")
-	#title(main="Spline Quadratica", sub="sub-title", 
-  	#xlab="X", ylab="F(x)")
+	cat("Spline Quadratica  = ", S, "\n")
+	return (S)
+	#plot(x,S,type = "l",col = "green")
+	
 }
+
 
 Spline_quadratica( c(3.0,4.5,7.0,9.0) , c(2.5,1.0,2.5,0.5) , 4 , seq(5,6,length.out=100))

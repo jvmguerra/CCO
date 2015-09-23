@@ -1,5 +1,12 @@
 Lagrange <- function(X,Y,n,x)
 {
+
+	#x  = Valor a ser interpolado
+	#X  = pontos dos x usados para fazer o polinomio XY
+	#Y  = pontos dos y para fazer o polinomio XY
+	#n  = numero de pontos do vetor X e Y (eles tem o mesmo tamanho)
+
+	
 	R <- 0
 	for(i in 1:n)
 	{
@@ -15,9 +22,10 @@ Lagrange <- function(X,Y,n,x)
 		}
 		R <- R + Y[i] * c/d
 	}	
-	print (R)
-	 #return R
-	plot(x,R, type = "l", col = "green")
+	
+	cat("Lagrange = ", R,"\n")
+	
+	return(R)
 }
 
 Lagrange(c(1,4,6), c(0,1.386298,1.791759),3,seq(1,6,length.out = 100) )
