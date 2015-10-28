@@ -9,13 +9,11 @@ Gauss<- function(A,b,m,n)
 	#b <- scan()
 	#TA FALATANDO O DETERMINANTE		
 
-	#A <- c(1,0.0003,1,3)
-	#b <- c(1,2.0001)
-	#m <- 2
-	#n <-2
-	#A <- c(1, 0.0003, 1,3)
-	#b <- c(1, 2.0001)
-
+	A <- c(0.0003,1,3,1)
+	b <- c(2.0001,1)
+	m <- 2
+	n <-2
+	
 	B <- c(A,b)
 	nc <- n+1
 	X <- c()
@@ -34,7 +32,7 @@ Gauss<- function(A,b,m,n)
 			  
 			  cat("OPA, Hora de trocar a linha!\n")
 			  cat("|B[i,k]|    --    MAX\n")
-			  cat(IND,"   >   ",k,"\n")
+			  cat(abs(B[i,k]),"   >   ",MAX,"\n")
 				
 			  MAX <- abs(B[i,k])
 				IND <- i 
