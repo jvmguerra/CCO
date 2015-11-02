@@ -3,13 +3,9 @@ LU<- function(A,b)
 	n <- sqrt(length(A))
 	m <- n
 
-	if (m != n) return ("Erro") #TEM QUE MUDAR PRA VER SE O RESULT DA RAIZ EH INTEIRO
-	#cat("Coloque os valores por coluna no A\n")
-	#A <- c()
-	#A <- scan()
-	#cat("Coloque os valores por coluna B\n")
-	#b <- c()
-	#b <- scan()
+	if (m != n) return ("Erro") 
+	
+	#TEM QUE MUDAR PRA VER SE O RESULT DA RAIZ EH INTEIRO
 	#TA FALATANDO O DETERMINANTE		
 
 	A <- c(1,-2,4,-3,8,-6,2,-1,5)
