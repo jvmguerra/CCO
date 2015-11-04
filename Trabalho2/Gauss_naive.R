@@ -1,29 +1,22 @@
-Gauss_naive <- function(A,b,m,n)
+Gauss_naive <- function(A,b)
 {
-	if (m != n) return ("Erro")
-	#cat("Coloque os valores por coluna no A\n")
-	#A <- c()
-	#A <- scan()
-	#cat("Coloque os valores por coluna B\n")
-	#b <- c()
-	#b <- scan()
+	A <- c(4,1,0,5,-1,-2,4,0,0,1,-4,5,-1,0,1,-1)
+	b <- c(1,-2,-3,4)
+	n <- sqrt(length(A))
+	m <- n
+  
+	if (m - floor(m) != 0) return ("Erro")
+	if(det(A) == 0 ) return ("Erro")
 	
-	A <- c(0.003, 1 , 3 , 1)
-	b <- c(2.0001, 1)
-	m <- 2
-	n <-2
-	#A <- c(1, 0.0003, 1,3)
-	#b <- c(1, 2.0001)
-
 	B <- c(A,b)
 	nc <- n+1
 	X <- c()
-	dim(B) <- c(m,nc)
+	dim(B) <- c(m,nc) ##formando a matriz A com os b´s juntos
 
-	
-	for(k in 1 :(n-1))
-	{
-		for(i in (k+1) : n)
+	##linha pivô ¬
+	for(k in 1 :(n-1)) ## Decomposição: Adquirindo L e U
+	{ # o primeiro for vai até n-1 pois a ultima linha nao eh reduzida
+		for(i in (k+1) : n) ## linhas a baixo da pivo
 		{
 			fator <- B[i,k]/B[k,k]
 			for(j in (k+1): nc)
@@ -45,9 +38,9 @@ Gauss_naive <- function(A,b,m,n)
 	}
 	
 
-	cat("X = ", X, "\n")
+	#cat("X = ", X, "\n")
 	#return X
 
 }
 
-Gauss_naive(c(0.003, 1 , 3 , 1) , c(2.0001, 1)  ,2  , 2)
+#Gauss_naive(c(0.003, 1 , 3 , 1) , c(2.0001, 1))

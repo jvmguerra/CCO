@@ -1,21 +1,20 @@
 LUP<- function(A,b)
 {
+  
+  #TA FALATANDO O DETERMINANTE		
+  #Insere a por coluna
+  
+  A <- c(4,1,0,5,-1,-2,4,0,0,1,-4,5,-1,0,1,-1)
+  b <- c(1,-2,-3,4)
+  
   n <- sqrt(length(A))
+  A <- matrix(A,m,n)
+  L <- matrix(0,n,m)
+  X <- 1
+  d <- 1
   m <- n
   
-  if (m != n) return ("Erro") 
-  
-  #TEM QUE MUDAR PRA VER SE O RESULT DA RAIZ EH INTEIRO
-  #TA FALATANDO O DETERMINANTE		
-  
-  A <- c(1,-2,4,-3,8,-6,2,-1,5)
-  b <- c(11,-15,29)
-  d <- c()
-  
-  A <- matrix(A,m,n)
-  
-  L <- matrix(0,n,m)
-  
+  if (m - floor(m) != 0) return ("Erro")
   
   for(i in 1:n)
   {
@@ -25,55 +24,63 @@ LUP<- function(A,b)
   P <- L
   U <- A
   
-  for(k in 1 :(n-1))
-  {	
-    MAX <- abs(U[k,k])
+  for (k in 1:(n-1)) ## CALCULO U E L 
+  {
+    max <- abs(U[k,k])
+    ind <- k
     
-    cat("\nPara k = ",k,", U[k,k] = ",U[k,k],"\n")
-    
-    IND <- k
-    for(i in (k+1) : n)
+    for(ii in (k+1):n) ##PIVOTEAMENTO
     {
-      if(abs(U[i,k]) > MAX)
+      if (abs(U[ii,k]) > max)
       {
-        
-        cat("OPA, Hora de trocar a linha!\n")
-        cat("|U[i,k]|    --    MAX\n")
-        cat(abs(U[i,k]),"   >   ",MAX,"\n")
-        
-        MAX <- abs(U[i,k])
-        IND <- i 
+        max <- abs(U[ii,k])
+        ind <- ii
       }
     }
-    if(IND != k)
+    
+    if (ind != k)
     {
-      
-      cat("OPA! IND eh != de k\n")
-      cat("IND    --    k\n")
-      cat(IND,"   !=   ",k,"\n")
-      
-      for(j in k : n)
+      for(j in k:n)
       {
         aux <- U[k,j]
-        U[k,j] <- U[IND,j]
-        U[IND,j] <- aux
+        U[k,j] <- U[ind,j]
+        U[ind,j] <- aux
       }
       
-      for(j in 1:n)
-      {
+      
+      for (j in 1:n)  ## MONITORANDO AS TROCAS DE U EM P PARA DEPOIS
+      {               ## COLOCAR EM B
         aux <- P[k,j]
-        P[k,j] <- P[IND,j]
-        P[IND,j] <- aux
+        P[k,j] <- P[ind,j]
+        P[ind,j] <- aux
       }
       
-      aux <- b[IND]
-      b[IND] <- b[k]
+      aux <- b[ind] ## REALIZANDO AS TROCAS EM B
+      b[ind] <- b[k]
       b[k] <- aux
       
+      if (k != 1)
+      {
+        for (j in 1:(k-1))
+        {
+          aux <- L[k,j]
+          L[k,j] <- L[ind,j]
+          L[ind,j] <- aux
+        }
+      }
     }
-  }
+    
+    for(i in (k+1):n)
+    {
+      L[i,k] <- U[i,k]/U[k,k]
+      for(m in 1:n)
+      {
+        U[i,m] <- U[i,m] - L[i,k]*U[k,m]
+      }
+    }
+  }## FIM CALCULO U E  L
   
-  d[1] <- b[1]
+  d[1] <- b[1]   ###CALCULO DO d  (Ld =b)
   for(i in 2:n)
   {
     soma <- 0
@@ -82,19 +89,20 @@ LUP<- function(A,b)
       soma <- soma + (L[i,j] * d[j])
     }
     d[i] <- b[i] - soma
-  }
+  }            #### FIM CALCULO DO d
   
   X[n] <- d[n]/ U[n,n]
   
   for(i in (n-1):1)
   {
     soma <-0
-    for(j in 1:(i-1))
+    for(j in (i+1):n)
     {
       soma <- soma + (U[i,j] * X[j])
     }
     X[i] <- (d[i] - soma)/ U[i,i]
   }
+  
 }
 
 LUP(c(1,-2,4,-3,8,-6,2,-1,5) , c(11,-15,-29) )
