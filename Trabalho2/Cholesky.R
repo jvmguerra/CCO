@@ -5,7 +5,7 @@ Cholesky <- function(A,b)
   
   n <- sqrt(length(A))
   m <- n
-  d <-c()
+  d <- c()
   X <- c()
   
   if (m - floor(m) != 0) return ("Erro")
@@ -18,73 +18,67 @@ Cholesky <- function(A,b)
   {
     
     L <- matrix(0,n,n)
-    Lt <- t(L)
     
     for(i in 1:n)
     {
       for(j in 1:n)
-      {		
-        if(j == i && i <= j)
+      {
+        if(i == j && i<=j)
         {
-          somatorio <- 0
+          soma <- 0
           if((i-1) != 0)
           {
             for(k in 1:(i-1))
-            {
-              somatorio <- somatorio + (Lt[k,i]^2)
+            { 
+              soma <- soma + (L[i,k]^2)
             }
           }
-          
-          Lt[i,j] <- sqrt(A[i,j] - somatorio)
+          L[i,i] <- sqrt(A[i,i] - soma)
         }
-        
-        else if(i <= j)
+        else if
+        (i > j)
         {
-          somatorio <- 0
-          
+          soma <- 0
           if((j-1) != 0)
           {
             for(k in 1:(j-1))
             {
-              somatorio <- somatorio + Lt[k,i]*Lt[k,j]
+                soma <- soma + (L[i,k] * L[j,k])
             }
           }
-          
-          Lt[i,j] <- (A[i,j] - somatorio)/Lt[i,i]
-        }
-      }#fecha for de j
-    }#fecha for de i
-    
-    L <- t(Lt)
+          L[i,j] <- (A[i,j] - soma) / L[j,j]
+        } 
+      }
+    }
     
     for(i in 1:n)
     {
-      somatorio <- 0
+      soma <- 0
       if((i-1) != 0)
       {
         for(j in 1:(i-1))
         {
-          somatorio <- somatorio + L[i,j]*d[j]
+          soma <- soma + L[i,j]*d[j]
         }
       }
       
-      d[i] <- (b[i] - somatorio)/L[i,i]
+      d[i] <- (b[i] - soma)/L[i,i]
       
     }#fecha for de i
     
     for(i in n:1)
     {
-      somatorio <- 0
+      soma <- 0
       
       if (i != n)
       {
         for(j in (i+1):n)
         {
-          somatorio <- somatorio + Lt[i,j]
+          soma <- soma + L[j,i] * X[j]
         }
       }
       
-      X[i] <- (d[i] - somatorio)/Lt[i,i]
+      X[i] <- (d[i] - soma)/L[i,i]
     }#fecha for de i
   }else
   {

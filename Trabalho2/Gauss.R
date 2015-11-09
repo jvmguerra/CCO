@@ -7,7 +7,8 @@ Gauss<- function(A,b)
   
   
   if (m - floor(m) != 0) return ("Erro")
-	
+	if(det(A) == 0) return ("Erro")
+  
 	B <- c(A,b)
 	nc <- n+1
 	X <- c()
@@ -57,14 +58,6 @@ Gauss<- function(A,b)
 		}
 		
 	}
-	## Calculo do determinante
-	det_result <-1
-	for (det_index in 1:n)
-	{
-	  det_result <- det_result * U[det_index,det_index]
-	}
-	if(det_result == 0) return ("Erro")
-	
 
 	X[n] <- B[n,nc] / B[n,n]
 	for(i in (n-1):1)
@@ -76,7 +69,6 @@ Gauss<- function(A,b)
 		}
 		X[i] <- (B[i,nc]- soma) / (B[i,i])
 	}
-	
 
 	#cat("X = ", X, "\n")
 	#return X
