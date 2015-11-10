@@ -1,13 +1,16 @@
 Gauss<- function(A,b)
 {
-  A <- c(4,1,0,5,-1,-2,4,0,0,1,-4,5,-1,0,1,-1)
-  b <- c(1,-2,-3,4)
+  
+  ##INSERE POR COLUNA
+  A <- c(9,6,-3,3,6,20,2,22,-3,2,6,2,3,22,2,28)
+  b <- c(12,64,4,82)
   n <- sqrt(length(A))
   m <- n
   
   
   if (m - floor(m) != 0) return ("Erro")
 	if(det(A) == 0) return ("Erro")
+  cat("Condicionamento: ",kappa(A,exact=TRUE)) 
   
 	B <- c(A,b)
 	nc <- n+1
@@ -70,9 +73,8 @@ Gauss<- function(A,b)
 		X[i] <- (B[i,nc]- soma) / (B[i,i])
 	}
 
-	#cat("X = ", X, "\n")
-	#return X
+	
 
 }
 
-Gauss(c(0.0003, 1, 3, 1) , c(2.0001, 1))
+#Gauss(c(0.0003, 1, 3, 1) , c(2.0001, 1))
