@@ -5,8 +5,8 @@ LU<- function(A,b)
 	#TA FALATANDO O DETERMINANTE	
   ## OS VALORES SÃO INFORMADOS POR COLUNA
 
-	A <- c(4,1,0,5,-1,-2,4,0,0,1,-4,5,-1,0,1,-1)
-	b <- c(1,-2,-3,4)
+  A <- c(9,6,-3,3,6,20,2,22,-3,2,6,2,3,22,2,28)
+  b <- c(12,64,4,82)
   
   n <- sqrt(length(A))
   m <- n
@@ -18,7 +18,10 @@ LU<- function(A,b)
   d <- c()
   
 	A <- matrix(A,m,n) ## Tornando A uma matriz
-
+  
+	cat("Condicionamento: ",kappa(A,exact=TRUE))
+	
+	
 	L <- matrix(0,n,n) ## Montando L
 	for (i in 1:n)
 	{
@@ -41,6 +44,15 @@ LU<- function(A,b)
 			}
 		}
 	}
+  
+  det <- 1 
+  for(i in 1:n)
+  {
+    det <- det * U[i,i]
+  }
+  
+  if(det == 0) return ("Determinante = 0")
+  
 	
 	d[1] <- b[1] ##pq a primeira linha de L sempre só tem um valor != de 0
 

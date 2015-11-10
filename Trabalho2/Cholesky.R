@@ -1,7 +1,11 @@
 Cholesky <- function(A,b)
 {
-  A <- c(5,-1,2,-1,8,4,2,4,10) ## DIGITAR OS VALORES POR COLUNA
-  b <- c(21,10,50) ## O b pode ser qualquer um 
+  ## DIGITAR OS VALORES POR COLUNA
+  A <- c(9,6,-3,3,6,20,2,22,-3,2,6,2,3,22,2,28)
+  b <- c(12,64,4,82)
+  
+  
+  ## O b pode ser qualquer um 
   
   n <- sqrt(length(A))
   m <- n
@@ -9,7 +13,7 @@ Cholesky <- function(A,b)
   X <- c()
   
   if (m - floor(m) != 0) return ("Erro")
-  
+  cat("Condicionamento: ",kappa(A,exact=TRUE)) 
   
   
   A <- matrix(A,m,n)
