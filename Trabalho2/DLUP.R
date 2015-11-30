@@ -2,8 +2,8 @@ LUP<- function(A,b)
 {
   #Insere a por coluna
   
-  A <- c(1,2,4,2,3,0,0,1,0,-3,1,2,5,1,3,0,-1,-2,-2,-3,0,1,2,4,3,-1,-2,0,1,0,0,1,2,5,1,3)
-  b <- c(10,-5,13,-16,12,2)
+  A <- c(2,1,4,6,3.001,-1,-3,2,9)
+  b <- c(5,9,29)
   trocas <-0
   
   
@@ -27,6 +27,8 @@ LUP<- function(A,b)
   
   P <- L
   U <- A
+  
+  
   
   for (k in 1:(n-1)) ## CALCULO U E L 
   {
@@ -90,7 +92,7 @@ LUP<- function(A,b)
   {
     det <- det * U[index,index]
   }
-  det <- det / ((-1)^trocas)
+  det <- det / ((-1) ^trocas)
   
   if(det == 0) return ("Determinante = 0")  
   

@@ -1,12 +1,9 @@
 LU<- function(A,b)
 {
 
-	#TEM QUE MUDAR PRA VER SE O RESULT DA RAIZ EH INTEIRO
-	#TA FALATANDO O DETERMINANTE	
   ## OS VALORES SÃO INFORMADOS POR COLUNA
-
-  A <- c(9,6,-3,3,6,20,2,22,-3,2,6,2,3,22,2,28)
-  b <- c(12,64,4,82)
+  A <- c(2,1,4,6,3.001,-1,-3,2,9)
+  b <- c(5,9,29)
   
   n <- sqrt(length(A))
   m <- n
@@ -82,4 +79,4 @@ LU<- function(A,b)
 }
 
 
-LU(c(1,-2,4,-3,8,-6,2,-1,5) , c(11,-15,-29) )
+#LU(c(1,-2,4,-3,8,-6,2,-1,5) , c(11,-15,-29) )
