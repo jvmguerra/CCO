@@ -1,11 +1,11 @@
 Cholesky <- function(A,b)
 {
   ## DIGITAR OS VALORES POR COLUNA
-  A <- c(9,-6,3,-6,29,-7,3,-7,18)
-  b <- c(-3,-8,33)
-
 
   ## O b pode ser qualquer um
+
+  A <- c(9,6,-3,3,6,20,2,22,-3,2,6,2,3,22,2,28)
+  b <- c(12,64,4,82)
 
   n <- sqrt(length(A))
   m <- n

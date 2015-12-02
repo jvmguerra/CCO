@@ -1,16 +1,18 @@
 Gauss_naive <- function(A,b)
 {
-  
+
   #INSERE POR COLUNA
+
   A <- c(-2,5,1,4,3,1,6,5,1,-1,3,2,5,0,-1,8)
   b <- c(2,-1,0,6)
+
 	n <- sqrt(length(A))
 	m <- n
-  
+
 	if (m - floor(m) != 0) return ("Erro")
 	if(det(A) == 0 ) return ("Erro")
-	cat("Condicionamento: ",kappa(A,exact=TRUE)) 
-	
+	cat("Condicionamento: ",kappa(A,exact=TRUE))
+
 	B <- c(A,b)
 	nc <- n+1
 	X <- c()
