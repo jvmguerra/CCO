@@ -1,5 +1,6 @@
 f <- function(x)
 {
+  #return(x^4/4 + x^2 + sin(x))
   return (0.2 + 25*x - 200*(x^2) + 675* (x^3) - 900 * (x^4) + 400* (x^5)  )
 }
 
@@ -25,13 +26,9 @@ erroR <- abs((Rreal - I)/Rreal) * 100
 #ERRO DA INTEGRAÇÃO ----------------------------------
 derivada_segunda <- D( D(e,"x"), "x")
 
-h <- ((b-a)/2)
 intervalo <-c()
-intervalo[1] <- a
-for(i in 2:(n-1))
-{
-  intervalo[i] <- intervalo[i-1] + h
-}
+
+intervalo <- seq(a,b,length.out = n)
 
 x <- abs(f2(derivada_segunda,intervalo[1]))
 for(i in 2:(length(intervalo)))
@@ -42,7 +39,7 @@ for(i in 2:(length(intervalo)))
 
 }
 
-Et <- - ( (  ( (b-a)^3) ) / 12) * x
+Et <- - (   ( (b-a)^3)  / 12) * x
 ##---------------------------------------------------
 
 #cat("Valor aproximado",I,"\nValor Real:",Rreal)

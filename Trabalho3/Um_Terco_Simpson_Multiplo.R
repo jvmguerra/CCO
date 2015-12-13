@@ -16,13 +16,14 @@ e <- expression(0.2 + 25*x - 200*(x^2) + 675* (x^3) - 900 * (x^4) + 400* (x^5))
 
 h <- (b-a)/n
 intervalo <-c()
-intervalo[1] <- a
+intervalo[1] <- a +h
 somatorio <- intervalo[1]
 for(i in 2:(n-1))
 {
   intervalo[i] <- intervalo[i-1] + h
 }
 
+intervalo_integral <- seq(a,b,length.out = n)
 # CALCULO DA INTEGRAL  -------------------------------
 somatorio_par <-0
 somatorio_impar <- 0
@@ -42,7 +43,7 @@ I <- ((b-a) / (3* n)) * (f(a) + 4* somatorio_impar + 2 * somatorio_par + f(b))
 
 
 
-#ERRO RELATIVO  E CALCULO DA INTEGRAL ----------------
+#ERRO RELATIVO E CALCULO DA INTEGRAL ----------------
 g <- integrate(f,a,b)$value
 Rreal <- g
 erroR <- abs((Rreal - I)/Rreal) * 100
@@ -51,12 +52,12 @@ erroR <- abs((Rreal - I)/Rreal) * 100
 derivada_quarta <-D( D (D ( D (e,"x"), "x"),"x"),"x")
 
 
-x <- abs(f2(derivada_quarta,intervalo[1]))
-for(i in 2:(length(intervalo)))
+x <- abs(f2(derivada_quarta,intervalo_integral[1]))
+for(i in 2:(length(intervalo_integral)))
 {
   
-  if(x < abs(f2(derivada_quarta,intervalo[i])))
-    x <- abs(f2(derivada_quarta,intervalo[i]))
+  if(x < abs(f2(derivada_quarta,intervalo_integral[i])))
+    x <- abs(f2(derivada_quarta,intervalo_integral[i]))
   
 }
 

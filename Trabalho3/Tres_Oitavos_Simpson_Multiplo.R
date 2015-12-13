@@ -10,15 +10,17 @@ f2 <- function(derivada_segunda,x)
 
 a <- 0
 b <- 0.8
-n <- 90 ## SERVE PARA O CALCULO DO ERRO, ESSE N VAI SER O NUMERO DE ITERAÇÕES QUE EU REALIZAREI BUSCANDO UM MÁXIMO PRA F(ALFA) EM MÓDULO.
+n <- 6 ## SERVE PARA O CALCULO DO ERRO, ESSE N VAI SER O NUMERO DE ITERAÇÕES QUE EU REALIZAREI BUSCANDO UM MÁXIMO PRA F(ALFA) EM MÓDULO.
 ## NOS MÉTODOS MÚLTIPLOS O N TAMBÉM É UTILIZADO PARA PARA MONTAR OS INTERVALOS NO CALCULO DA INTEGRAL
 e <- expression(0.2 + 25*x - 200*(x^2) + 675* (x^3) - 900 * (x^4) + 400* (x^5))
 
 h <- (b-a)/n
+
+intervalo_integral <- seq(a,b,length.out = n)
 intervalo <-c()
-intervalo[1] <- a
-somatorio <- intervalo[1]
-for(i in 2:(n-1))   ## TEM QUE SER N-1 PQ ??
+intervalo[1] <- a +h
+
+for(i in 2:(n-1))
 {
   intervalo[i] <- intervalo[i-1] + h
 }
@@ -38,7 +40,7 @@ for(i in 1:(n-1))
   }
   
 }
-I <- ( (3*h) / 8)  * ( f(a) + 3* somatorio_m3 + 2 * somatorio_nm3 + f(b) )
+I <- ( (3*h) / 8)  * ( f(a) + 3* somatorio_nm3 + 2 * somatorio_m3 + f(b) )
 
 
 
@@ -51,12 +53,16 @@ erroR <- abs((Rreal - I)/Rreal) * 100
 derivada_quarta <-D( D (D ( D (e,"x"), "x"),"x"),"x")
 
 
-x <- abs(f2(derivada_quarta,intervalo[1]))
+x <- abs(f2(derivada_quarta,intervalo_integral[1]))
 for(i in 2:(length(intervalo)))
 {
   
-  if(x < abs(f2(derivada_quarta,intervalo[i])))
-    x <- abs(f2(derivada_quarta,intervalo[i]))
+  if(x < abs(f2(derivada_quarta,intervalo_integral[i])))
+  {
+    x <- abs(f2(derivada_quarta,intervalo_integral[i]))
+  }
+    
+    
   
 }
 

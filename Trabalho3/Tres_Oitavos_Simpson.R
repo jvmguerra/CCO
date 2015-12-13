@@ -1,5 +1,6 @@
 f <- function(x)
 {
+  
   return (0.2 + 25*x - 200*(x^2) + 675* (x^3) - 900 * (x^4) + 400* (x^5)  )
 }
 
@@ -18,10 +19,8 @@ h <- (b-a)/3 ## AKI É 4 POIS A REGRA DE SIMPSON SEMPRE EXIGE 4 PONTOS IGUALMENT
 intervalo <-c()
 intervalo[1] <- a
 somatorio <- intervalo[1]
-for(i in 2:(n-1))
-{
-  intervalo[i] <- intervalo[i-1] + h
-}
+
+intervalo <- seq(a,b,length.out = n)
 
 # CALCULO DA INTEGRAL  -------------------------------
 
@@ -47,7 +46,7 @@ for(i in 2:(length(intervalo)))
   
 }
 
-Et <- - ( ( ( (b-a) ^5) / 80) * x)
+Et <- - ( (  (b-a) ^5 / 80) * x)
 ##---------------------------------------------------
 
 
