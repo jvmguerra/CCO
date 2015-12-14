@@ -1,12 +1,23 @@
-A<- c(10,2,1,3,8,1,-2,-1,5)
-b<- c(57,20,-4)
+#A <- c(10,2,1,3,8,1,-2,-1,5)
+#b<- c(57,20,-4)
 
-x_ant<-c(5.7,2.5,-0.8) #começa como x0. É O X INICIAL, PODE SER ESTIPULADO 
+A<-c(0.5,1,0.4,0.6,1,-0.4,0.3,1,1)
+b<- c(0.2,0,-0.6)
+
+
+
+
+#x_ant<-c(5.7,2.5,-0.8) #começa como x0. É O X INICIAL, PODE SER ESTIPULADO 
 x_prox<-0
 n <- sqrt(length(A))
 m <- n
 A<-matrix(A,m,n)
 soma <-0
+
+for(i in 1:nrow(A))
+{
+  x_ant[i] <- b[i]/A[i,i]
+}
 
 diagonalPositiva<-0
 
@@ -89,6 +100,6 @@ j<-(-d)%*%(E+f)
 J<-eigen(j)$values #dando numero complexo
 J<-abs(J)
 ifelse( max(J)>1,"Não converge","Converge")	
-print(max(J))
-
+cat("P(J): ",max(J))
+cat("Resultado: ",x_prox," com erro = ",e,"e k = ", k)
 
